@@ -1,3 +1,6 @@
+#Aaron's Homework
+#Roger's super fast solutions are listed as the two other R scripts here
+#
 #' Do fast linear models
 #'
 #' \code{fastlm} Does lm, but faster. Uses cholesky decomposition of crossprod(X) to invert X'X. 
@@ -142,6 +145,8 @@ dmvnorm_cholesky <- function(x, mu, S, log = TRUE) {
   #=tcrossprod((xTilde%*%Rinv))
   quadTerms <-rep(NA,n)
   for (i in 1:n) quadTerms[i]<-tcrossprod((xTilde[i,]%*%Rinv))
+  #one alternative to diag(Z'Z) is to get the col sums of Z*Z. Col sums is super optimized
+  #This is much slower because the loop has overhead
 
   logdnorm <- -(k/2)*log(2*pi)-.5*logDetS-.5*quadTerms
   

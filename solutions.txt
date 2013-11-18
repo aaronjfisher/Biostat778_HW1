@@ -1,0 +1,5 @@
+Solutions have been merged from Roger's branch, and are stored in the R folder of the package as fastlm.R and dmvnorm.R
+
+Your solutions are stored under HW1AF.R
+
+You can see roger's full working git repo on github also.
