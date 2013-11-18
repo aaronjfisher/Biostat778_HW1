@@ -1,42 +1,38 @@
 \name{dmvnorm}
 \alias{dmvnorm}
-\title{get multivariate normal density for a matrix of vectors.}
-\usage{
-  dmvnorm(x, mu, S, log = TRUE)
-}
-\arguments{
-  \item{x}{nxk matrix, where k is the number of
-  measurements per observation, and n is the number of
-  observations}
-
-  \item{mu}{k-length vector of means}
-
-  \item{S}{a kxk covariance matrix}
-
-  \item{log}{whether to output log denisites or not.}
-}
-\value{
-  A vector of densities, length-n
+%- Also NEED an '\alias' for EACH other topic documented here.
+\title{
+	Compute the multivariate Normal density
 }
 \description{
-  \code{dmvnorm} gets the multivariate density.
+  Compute a fast version of the multivariate Normal density function
 }
-\examples{
-kSqrt <- 5 #our final density will be for a random vector of length 15
-k <- kSqrt^2
-xg <- seq(0, 1, length = kSqrt)
-yg <- xg
-g <- data.matrix(expand.grid(xg, yg))
-D <- as.matrix(dist(g))
-phi <- 5
-S <- exp(-phi * D) #S ends up being k by k
-n<-4 #four observations
-
-mu <- rep(0, k)
-set.seed(1)
-x <- matrix(rnorm(k*n), byrow = TRUE, ncol = k) #n x k, this is the usual input to dmvnorm i mvtnorm
-
-system.time( fastOutput <-dmvnorm(x=x,mu=mu,S=S,log=TRUE) )
-str(fastOutput)
+\usage{
+dmvnorm(x, mu, S, log = TRUE)
 }
-
+%- maybe also 'usage' for other objects documented here.
+\arguments{
+  \item{x}{
+    The n x k matrix of n points at which to evaluate the density 
+}
+  \item{mu}{
+    The length k vector of means
+}
+  \item{S}{
+    The k x k covariance matrix
+}
+  \item{log}{
+    Should the function return the log density? Default is \code{TRUE}.
+}
+}
+\details{
+  This function checks to make sure that \code{S} is positive definite
+  and returns an error if it is not.
+}
+\value{
+  A length n vector of (log) density values is returned
+}
+\author{
+  Roger D. Peng \email{rpeng@jhsph.edu}
+}
+\keyword{distribution}

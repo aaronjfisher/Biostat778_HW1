@@ -1,45 +1,39 @@
 \name{fastlm}
 \alias{fastlm}
-\title{Do fast linear models}
-\usage{
-  fastlm(X, y, na.rm = FALSE)
-}
-\arguments{
-  \item{X}{a nxp matrix, where k is the number of
-  measurements per observation, and n is the number of
-  observations}
-
-  \item{y}{a n-length vector of outcomes}
-
-  \item{na.rm}{Whether the X or y data has na's. If TRUE,
-  take the time to remove them. Otherwise skip it if you
-  don't expect an error.}
-}
-\value{
-  A vector of densities, length-n
+%- Also NEED an '\alias' for EACH other topic documented here.
+\title{
+	Fit a linear regression model
 }
 \description{
-  \code{fastlm} Does lm, but faster. Uses cholesky
-  decomposition of crossprod(X) to invert X'X.
+  Fit a linear regression model using fast computation
 }
-\examples{
-set.seed(2)
- #####Generate predictor matrix
-n <- 1000
-p <- 5
-X <- cbind(1, matrix(rnorm(n * (p - 1)), n, p - 1))
-
-## Coefficents
-b <- rnorm(p)
-
-## Response
-y <- X \%*\% b + rnorm(n)
-
-
-
-
-system.time( fit_fast <- fastlm(X, y) )
-system.time( fit_compare <- lm.fit(X, y) )
-str(fit_fast)
+\usage{
+fastlm(X, y, na.rm = FALSE)
 }
-
+%- maybe also 'usage' for other objects documented here.
+\arguments{
+  \item{X}{
+    The n x p matrix of p predictors for n observations
+}
+  \item{y}{
+    The length n vector of responses
+}
+  \item{na.rm}{
+    Should missing values from \code{X} or \code{y} be removed first?
+    Default is \code{FALSE}.
+}
+}
+\details{
+  This function computes the linear regression coefficients and the covariance
+  matrix of the estimated coefficients in a fast manner.
+}
+\value{
+A list containing the following items is returned:
+ \item{coefficients}{A length p vector of estimated regression coefficients}
+ \item{vcov}{A p x p matrix containing the covariance matrix of the estimated
+   regression coefficients}
+}
+\author{
+  Roger D. Peng \email{rpeng@jhsph.edu}
+}
+\keyword{models}
